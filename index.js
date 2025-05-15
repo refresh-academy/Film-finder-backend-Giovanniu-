@@ -10,8 +10,8 @@ console.log(yosay('Hello, and welcome to my fantastic generator full of whimsy a
 import express from 'express'
 let app = express()
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
+app.get('genre/movie/list', (req, res) => {
+  res.send('Hello genre movie list!')
 })
 
 app.listen(3000)
@@ -27,3 +27,16 @@ app.listen(port, () => {
 import randomAnimalName from 'random-animal-name'
   const animalName = randomAnimalName()
   console.log(animalName)
+import animal from '@fakerjs/animal';
+
+console.log(animal());
+//=> Snow Leopard
+
+console.log(animal({type: 'zoo'}));
+//=> Snow Leopard
+
+console.log(animal({type: 'zoo', locale: 'en_US'}));
+//=> Snow Leopard
+
+// Allowed type: ocean, desert, grassland, forest, farm, pet, zoo
+// Allowed locale: en_US 
