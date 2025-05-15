@@ -2,8 +2,11 @@
   "name": "film-finder-backend-giovanniu-",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon",
+    "prova": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +21,14 @@
   "homepage": "https://github.com/refresh-academy/Film-finder-backend-Giovanniu-#readme",
   "description": "",
   "dependencies": {
+    "@fakerjs/animal": "^2.2.0",
     "cowsay": "^1.6.0",
     "express": "^5.1.0",
     "mock-res": "^0.6.0",
+    "random-animal-name": "^0.1.1",
     "yosay": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
