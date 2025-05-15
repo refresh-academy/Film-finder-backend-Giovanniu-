@@ -16,5 +16,11 @@
     "url": "https://github.com/refresh-academy/Film-finder-backend-Giovanniu-/issues"
   },
   "homepage": "https://github.com/refresh-academy/Film-finder-backend-Giovanniu-#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "cowsay": "^1.6.0",
+    "express": "^5.1.0",
+    "mock-res": "^0.6.0",
+    "yosay": "^3.0.0"
+  }
 }
