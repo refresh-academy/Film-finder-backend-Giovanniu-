@@ -24,3 +24,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+import randomAnimalName from 'random-animal-name'
+  const animalName = randomAnimalName()
+  console.log(animalName)
