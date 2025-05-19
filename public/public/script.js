@@ -1,46 +1,44 @@
 const tmdbKey = 'b22aeb005afae2ccc4c16edfebbc202a';
 const tmdbBaseUrl = 'https://api.themoviedb.org/3';
-const tmdbBaseUrlLocale='http://localhost:3000';
+const tmdbBaseUrlLocale = 'http://localhost:3000';
 const requestEndpoint = "/genre/movie/list?";
 const playBtn = document.getElementById('playBtn');
 //TODO create a variable named getGenres and put it into an async method//
-const originalFetch=window.fetch;
-window.fetch = function(...args) {
-return new Promise((resolve, reject) => {
-setTimeout(async () => {
-  try {
-    const response=await originalFetch(...args);
-    resolve(response);
-  } catch (error) {
-    reject(error);
-  }
-} , 100);
-})
+const originalFetch = window.fetch;
+window.fetch = function (...args) {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const response = await originalFetch(...args);
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    }, 100);
+  })
 };
 
 const getGenres = async () => {
-const genreRequestEndpoint = '/genre/movie/list';
-const queryString = `?api_key=${tmdbKey}`;
-const url= tmdbBaseUrlLocale + genreRequestEndpoint + queryString;
+  const genreRequestEndpoint = '/genre/movie/list';
+  const queryString = `?api_key=${tmdbKey}`;
+  const url = tmdbBaseUrlLocale + genreRequestEndpoint + queryString;
   try {
     const response = await fetch(url)
     if (response.ok) { // 200 ---> ok --->204---> ok;
-      const genresObj = await response.json();
       console.log("Response json is: ", genresObj);
-      const genresArray = genresObj.genres;
-      return genresArray;
-    } else {
-      console.log("API error: response no data")
-      return []
+      const jsonResponse = await response.json();
+      console.log("got response: ", jsonResponse)
+      const genreList = jsonResponse["genres"];
+      console.log("genres are: ", genreList);
+      return genreList;
     }
-  } catch (error) {
-    console.error(error)
-    console.log("API error: response undefined");
-  return []};
+  } catch (e) {
+    console.log("API error: response no data", e);
+  }
 };
 
 const getMovies = async () => {
-  selectedGenre = getSelectedGenre();
+  const selectedGenre = getSelectedGenre();
   const queryString = "?with_genres=" + selectedGenre + "&api_key=" + tmdbKey;
   const requestEndpoint = "/discover/movie";
   const url = tmdbBaseUrl + requestEndpoint + queryString;
@@ -58,14 +56,27 @@ const getMovies = async () => {
     .catch(error => {
       console.log("1111 ERRORE DI SISTEMA!!", error);
     });
-  console.log("1111 end of getMovies");
 }
 
 
-const getMovieInfo = () => {
+const getMovieInfo = async (movie) => {
+  console.log("Getting movie details for ", movie);
+  const movieId = movie.id;
+  const movieEndpoint = `/movie/${movieId}`;
+  const requestParams = `?api_key=${tmdbKey}`;
+  const urlToFetch = tmdbBaseUrl+movieEndpoint+requestParams;
+  try {
+    const response = await fetch(urlToFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      console.log("Got movie info: ", jsonResponse);
+      return jsonResponse;
+    }
+} catch (e) {
+    console.log(" Error getting movie info: ", e);
 
-  //select a movie and show his average rating and release date
   playBtn = document.getElementById()
+}
 };
 //TODO Gets a list of movies and ultimately displays the info of a random movie from the list//
 
@@ -76,30 +87,18 @@ const showRandomMovie = async () => {
   if (movieInfo.childNodes.length > 0) {
     clearCurrentMovie();
   };
-  // this is showSpinner();
-  const listArray = await getMovies();
-  if (listArray.length > 0) {
-    loadingElem.style.display = "none";
-  }
-  console.log("showRandomMovie")
-  const randomMovie = getRandomMovie(listArray);
-  displayMovie(randomMovie);
-  //hideSpinner();
-  showCarousel(listArray.slice(0, 5));
+  const movies = await getMovies(); // prendo i films
+  const randomMovie = await getRandomMovie(movies);  // ne seleziono uno
+  // const info = await getMovieInfo(randomMovie);
+  // displayMovie(info);
+  displayMovie(randomMovie); // lo visualizzo
+
+  // scarico i dettagli completi dei pprimi cinque film
+  const movieDetails = await getMovieDetails(movies.slice(0, 5));
+  displayCarousel(movieDetails); // visualizzo il carosello
 };
-// 1 scaricare lista dei film del genere selezionato
-// this is getMovies(function (movies) {
-//  console.log("Dentro De")
-//  const movie = getRandomMovie(movies);
-//  console.log("22222 showRandomMovie movie ", movie);
-// 2 selezionare un film a caso tra quelli ottenuti
-
-//TODO 3 visualizzare a schermo le informazioni del film selezionato 
-//  displayMovie(movie);
-// });
 
 
-//getGenres().then(populateGenreDropdown);
 getGenres().then(function (genres) {
   populategenresDropdown(genres);
 });
@@ -133,7 +132,7 @@ const showCarousel = async (carouselMovies) => {
     const movieDetails = await getMovieDetails(movie_id);
     productionEl.innerText = movieDetails.production_companies[0].name;
     eleLI.appendChild(productionEl);
-    carousel.appendChild(eleLI); //aggiungo a Ul il nuovo LI/
+    CarouselEl.appendChild(eleLI); //aggiungo a Ul il nuovo LI/
 
   });
 }
