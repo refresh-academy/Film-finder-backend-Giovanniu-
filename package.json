@@ -1,32 +1,27 @@
 {
-  "name": "film-finder-backend-giovanniu-",
+  "name": "film_finder_backend_matteo",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon",
-    "prova": "node test.js"
+    "lista_generi" : "node ./genres_list.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/refresh-academy/Film-finder-backend-Giovanniu-.git"
+    "url": "git+https://github.com/refresh-academy/film_finder_backend_Giovanniu.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Giovanni",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/refresh-academy/Film-finder-backend-Giovanniu-/issues"
+    "url": "https://github.com/refresh-academy/film_finder_backend_Giovanniu-/public/public"
   },
-  "homepage": "https://github.com/refresh-academy/Film-finder-backend-Giovanniu-#readme",
-  "description": "",
+  "homepage": "https://github.com/refresh-academy/film_finder_backend_Giovanniu#readme",
+  "description": "backend testing ground",
   "dependencies": {
-    "@fakerjs/animal": "^2.2.0",
     "cowsay": "^1.6.0",
-    "express": "^5.1.0",
-    "mock-res": "^0.6.0",
-    "random-animal-name": "^0.1.1",
-    "yosay": "^3.0.0"
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

@@ -1,18 +1,18 @@
 console.log("Hello wordl");
-import cowsay from 'cowsay';
+/*const cowsay= require('cowsay');
 console.log(cowsay.say({
   text: "I'm a moooodule",
   e: "oO",
   T: "U "
 }));
-import yosay from 'yosay';
-console.log(yosay('Hello, and welcome to my fantastic generator full of whimsy and bubble gum!'));
-import express from 'express'
-let app = express()
+const yosay= require('yosay');
+console.log(yosay('Hello, and welcome to my fantastic generator full of whimsy and bubble gum!'));*/
+const express = require('express');
+let app = express();
 
 app.get('/genre/movie/list', (req, res) => {
-  console.log(req.query)
-  
+  console.log(req.query);
+
   const genres = {
     "genres": [
       {
@@ -24,28 +24,42 @@ app.get('/genre/movie/list', (req, res) => {
         "name": "Action"//adventure
       }]
   }
-  res.send(genres)
-})
+  res.send(genres);
+});
+
 app.use(express.static('public'))
 //app.listen(3000)
-const port = 3000
+const port = 3000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
-import randomAnimalName from 'random-animal-name'
-const animalName = randomAnimalName()
-console.log(animalName)
-import animal from '@fakerjs/animal';
-
-console.log(animal());
-//=> Snow Leopard
-
-console.log(animal({ type: 'zoo' }));
-//=> Snow Leopard
-
-console.log(animal({ type: 'zoo', locale: 'en_US' }));
-//=> Snow Leopard
+});
+ 
 
 // Allowed type: ocean, desert, grassland, forest, farm, pet, zoo
 // Allowed locale: en_US 
+const fs = require('fs');
+//const genres = require('./data/genres_list.json');
+
+
+app.get('/genre/movie/list', (req, res) => {
+  console.log(req.query);
+  const dataAsText = fs.readFileSync('data/genres.json', 'utf8');
+  const genres = JSON.parse(dataAsText);
+  res.send(genres)
+})
+app.get('/discover/movie', (req, res) => {  
+  console.log("/discover/movie params: ", req.query)
+  const genreId = req.query.with_genres; // <-- SECURITY THREAT!
+  const dataAsText = fs.readFileSync(`data/genre-movies-${genreId}.json`, 'utf8');
+  const genreMovies = JSON.parse(dataAsText);
+  res.send(genreMovies)
+ // <-- SECURITY THREAT!
+})
+
+
+
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`) // http://localhost:3000
+})

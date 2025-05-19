@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../film-finder/public"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../newserver"
+		}
+	],
+	"settings": {}
+}

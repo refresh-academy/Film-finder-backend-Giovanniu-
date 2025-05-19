@@ -19,7 +19,9 @@ setTimeout(async () => {
 };
 
 const getGenres = async () => {
-  const url= tmdbBaseUrlLocale + requestEndpoint + "api_key=" + tmdbKey;
+const genreRequestEndpoint = '/genre/movie/list';
+const queryString = `?api_key=${tmdbKey}`;
+const url= tmdbBaseUrlLocale + genreRequestEndpoint + queryString;
   try {
     const response = await fetch(url)
     if (response.ok) { // 200 ---> ok --->204---> ok;
@@ -135,3 +137,5 @@ const showCarousel = async (carouselMovies) => {
 
   });
 }
+//merry christamss==happy new year!!!!
+//welcome to my cities

@@ -68,7 +68,7 @@ const createCarouselMoviePoster = (posterPath) => {
 const showLoading = (loading) => {
   const barLoad = document.getElementById('loading');
   barra.style.display = 'block';
-  barLoad.innerHTML=loading;
+  barLoad.innerHTML = loading;
 }
 // Create HTML for movie title
 const createMovieTitle = (title) => {
@@ -112,7 +112,7 @@ const getRandomMovie = (movies) => {
   const randomMovie = movies[randomIndex];
   return randomMovie;
 };
-  
+
 // Uses the DOM to create HTML to display the movie
 const displayMovie = (movieInfo) => {
   console.log("showing movie: ", movieInfo);
@@ -142,3 +142,21 @@ const displayMovie = (movieInfo) => {
   likeBtn.onclick = likeMovie;
   dislikeBtn.onclick = dislikeMovie;
 };
+displayCarousel = (movies) => {
+  const movieList = document.getElementById('movieList');
+  for (const movie of movies) {
+
+    const moviePoster = createMoviePoster(movie.poster_path);
+    const titleHeader = createMovieTitle(movie.title);
+
+    // Append title, poster, and overview to page 
+    movieList.appendChild(moviePoster);
+    movieList.appendChild(titleHeader);
+
+  }
+};
+const refreshCarousel = () => {
+  const list = document.getElementById('carousel')
+  list.innerHTML = ''
+}
+
