@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon",
-    "lista_generi" : "node ./genres_list.js"
+    "lista_generi": "node ./genres_list.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,9 @@
   "homepage": "https://github.com/refresh-academy/film_finder_backend_Giovanniu#readme",
   "description": "backend testing ground",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "cowsay": "^1.6.0",
+    "cypress": "^14.3.3",
     "express": "^5.1.0"
   },
   "devDependencies": {
