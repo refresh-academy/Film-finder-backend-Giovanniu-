@@ -24,8 +24,8 @@ const getGenres = async () => {
   const url = tmdbBaseUrlLocale + genreRequestEndpoint + queryString;
   try {
     const response = await fetch(url)
+    console.log(response);
     if (response.ok) { // 200 ---> ok --->204---> ok;
-      console.log("Response json is: ", genresObj);
       const jsonResponse = await response.json();
       console.log("got response: ", jsonResponse)
       const genreList = jsonResponse["genres"];
@@ -100,13 +100,14 @@ const showRandomMovie = async () => {
 
 
 getGenres().then(function (genres) {
+  console.log(genres);
   populategenresDropdown(genres);
 });
 //Nuova funzione per movie details;
-const getMovieDetails = async (movie_id) => {
+const getMovieDetails = async (movieId) => {
   const requestEndpoint = "/movie/";
   const queryString = "?api_key=" + tmdbKey;
-  const urlToFetch = tmdbBaseUrl + requestEndpoint + movie_id + queryString;
+  const urlToFetch = tmdbBaseUrl + requestEndpoint + movieId + queryString;
   const response = await fetch(urlToFetch);
   const jsonResponse = await response.json();
   console.log("+++ Got movie details response", jsonResponse);
@@ -127,9 +128,9 @@ const showCarousel = async (carouselMovies) => {
     const eleImg = createCarouselMoviePoster(movie.poster_path);
     eleLI.appendChild(eleImg);
     const productionEl = document.createElement('h2');
-    const movie_id = movie.id;
+    const movieId = movie.id;
     //aspettare funzione; 
-    const movieDetails = await getMovieDetails(movie_id);
+    const movieDetails = await getMovieDetails(movieId);
     productionEl.innerText = movieDetails.production_companies[0].name;
     eleLI.appendChild(productionEl);
     CarouselEl.appendChild(eleLI); //aggiungo a Ul il nuovo LI/
